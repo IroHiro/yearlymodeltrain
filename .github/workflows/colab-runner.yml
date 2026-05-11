@@ -1,0 +1,41 @@
+# .github/workflows/colab-runner.yml
+name: Yearly Colab Notebook Runner
+
+on:
+  schedule:
+    # Runs on January 15th at 00:00 UTC every year
+    - cron: '0 0 15 1 *'
+  workflow_dispatch:  # Allows manual trigger from GitHub UI
+
+jobs:
+  run-colab:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          pip install selenium webdriver-manager
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser chromium-chromedriver
+      
+      - name: Run Colab Notebook Automation
+        run: python run_colab.py
+        env:
+          # Your Colab notebook ID should be stored as a secret
+          NOTEBOOK_ID: ${{ secrets.COLAB_NOTEBOOK_ID }}
+      
+      - name: Send notification (optional)
+        if: always()
+        run: |
+          # Send Discord notification (free)
+          curl -X POST -H "Content-Type: application/json" \
+            -d '{"content": "🔄 Colab yearly retraining completed at ${{ github.run_id }}"}' \
+            ${{ secrets.DISCORD_WEBHOOK }} || true
