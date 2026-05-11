@@ -8,7 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
 # Your Colab notebook ID (get from URL)
-NOTEBOOK_ID = "YOUR_NOTEBOOK_ID_HERE"  # Replace with your actual ID
+NOTEBOOK_ID = os.environ.get('NOTEBOOK_ID', 'YOUR_ID_HERE')
 
 def run_colab_notebook():
     """Attempt to open and run a Colab notebook automatically"""
