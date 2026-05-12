@@ -10,7 +10,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
 # Your Colab notebook ID - ONLY the ID part
-NOTEBOOK_ID = "1JXUXrkbsbkJPniHNVdekycrYl-ad8y5m"
+NOTEBOOK_ID = "1JXUXrkbsbkJPniHNVdekycrYl-ad8y5m#scrollTo=85uUQhGyzRuJ"
 
 def run_colab_notebook():
     """Attempt to open and run a Colab notebook automatically"""
